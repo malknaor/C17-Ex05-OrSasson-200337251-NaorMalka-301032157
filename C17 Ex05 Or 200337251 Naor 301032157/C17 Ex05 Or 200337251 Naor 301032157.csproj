@@ -72,6 +72,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BoardForm.resx">
+      <DependentUpon>BoardForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameSettings.resx">
       <DependentUpon>GameSettings.cs</DependentUpon>
     </EmbeddedResource>

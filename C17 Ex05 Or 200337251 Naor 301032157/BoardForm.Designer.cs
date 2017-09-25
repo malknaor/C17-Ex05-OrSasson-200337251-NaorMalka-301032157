@@ -32,6 +32,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.PlayerScore = new System.Windows.Forms.Label();
+            this.OpponentScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -46,7 +48,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(103, 235);
+            this.label2.Location = new System.Drawing.Point(111, 234);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 1;
@@ -63,10 +65,26 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(146, 235);
+            this.label4.Location = new System.Drawing.Point(154, 234);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(0, 13);
             this.label4.TabIndex = 3;
+            // 
+            // PlayerScore
+            // 
+            this.PlayerScore.AutoSize = true;
+            this.PlayerScore.Location = new System.Drawing.Point(64, 235);
+            this.PlayerScore.Name = "PlayerScore";
+            this.PlayerScore.Size = new System.Drawing.Size(0, 13);
+            this.PlayerScore.TabIndex = 4;
+            // 
+            // OpponentScore
+            // 
+            this.OpponentScore.AutoSize = true;
+            this.OpponentScore.Location = new System.Drawing.Point(161, 234);
+            this.OpponentScore.Name = "OpponentScore";
+            this.OpponentScore.Size = new System.Drawing.Size(0, 13);
+            this.OpponentScore.TabIndex = 5;
             // 
             // BoardForm
             // 
@@ -74,6 +92,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(279, 257);
+            this.Controls.Add(this.OpponentScore);
+            this.Controls.Add(this.PlayerScore);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -92,5 +112,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label PlayerScore;
+        private System.Windows.Forms.Label OpponentScore;
     }
 }

@@ -17,8 +17,8 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
         private readonly TicTacToeBoard r_TicTacToeBoard;
         private ePlayer m_CurrentPlayer;
         private readonly ePlayerType m_OpponentType;
-        private static int m_PlayerScore;
-        private static int m_OpponentScore;
+        private /*static*/ int m_PlayerScore;
+        private /*static*/ int m_OpponentScore;
 
         public BoardForm(int i_Size, ePlayerType i_Opponent)
         {
@@ -69,159 +69,136 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
             }
         }
 
+        public Button[,] ButtonsMatrix
+        {
+            get
+            {
+                return r_ButtonsMatrix;
+            }
+        }
+
         private void board_button_click(object sender, EventArgs e)
         {
             BoardButton button = (sender as BoardButton);
+            int rowIndex = button.RowIndex;
+            int colIndex = button.ColIndex;
 
             button.Text = m_CurrentPlayer == ePlayer.Player ? "X" : "O";
             button.Enabled = false;
+            TicTacToeBoard.playTurn(ref rowIndex, ref colIndex);
         }
 
-        private void generate_button_click(object sender, EventArgs e)
+        private void generate_button_click(ref int io_RowIndex, ref int io_ColIndex)
         {
-            //here we need the computer to generate indexes
+            TicTacToeBoard.playTurn(ref io_RowIndex, ref io_ColIndex); 
+            ButtonsMatrix[io_RowIndex, io_ColIndex].Text = "O";
+            ButtonsMatrix[io_RowIndex, io_ColIndex].Enabled = false;
         }
 
-        //    private void runGame()
+        protected 
+
+        //private void runGame()
+        //{
+        //    int inputtedRowNum = 0;
+        //    int inputtedColNum = 0;
+        //    bool isWon = false;
+        //    bool currentRoundOver = false;
+        //    bool keepPlaying = true;
+        //    bool isTied = false;
+
+        //    do
         //    {
-        //        int inputtedRowNum = 0;
-        //        int inputtedColNum = 0;
-        //        bool isWon = false;
-        //        bool currentRoundOver = false;
-        //        bool keepPlaying = true;
-        //        bool isTied = false;
-        //        bool didPlayerQuit = false;
-
-        //        Console.WriteLine("Click any key to start the Game.");
-        //        Console.ReadLine();
-        //        drawBoard();
-
-        //        do
+        //        if (m_CurrentPlayer == ePlayer.Player)
         //        {
-        //            // Since player1 is always human.
-        //            if (r_TicTacToeBoard.OpponentType == ePlayerType.Human || r_TicTacToeBoard.CurrentPlayer == ePlayer.Player)
-        //            {
-        //                getCellCoordinatesFromUser(out inputtedRowNum, out inputtedColNum, out didPlayerQuit);
-        //            }
-
-        //            if (!didPlayerQuit)
-        //            {
-        //                r_TicTacToeBoard.PlayTurn(ref inputtedRowNum, ref inputtedColNum);
-        //                drawBoard();
-
-        //                if (r_TicTacToeBoard.checkBoardForSequence(inputtedRowNum, inputtedColNum))
-        //                {
-        //                    updateScore();
-        //                    showPlayersScore();
-        //                    isWon = true;
-        //                }
-        //                else if (isGameTied())
-        //                {
-        //                    Console.WriteLine("{0}{1}", "The Game finished at Draw", Environment.NewLine);
-        //                    showPlayersScore();
-        //                    isTied = true;
-        //                }
-
-        //                switchPlayersTurn();
-        //            }
-
-        //            currentRoundOver = isTied || isWon || didPlayerQuit;
-
-        //            if (currentRoundOver)
-        //            {
-        //                Console.WriteLine("The current game has ended. Would you like to play another round? Y/N");
-        //                string userSelection = Console.ReadLine();
-
-        //                if (userSelection == "N" || userSelection == "n")
-        //                {
-        //                    keepPlaying = false;
-        //                }
-        //                else
-        //                {
-        //                    prepareNextRound();
-        //                    isWon = false;
-        //                    isTied = false;
-        //                    currentRoundOver = false;
-        //                }
-        //            }
-        //        }
-        //        while (keepPlaying);
-
-        //        Console.WriteLine("Hope you Enjoyed! Click any key to exit.)");
-        //        Console.ReadLine();
-        //    }
-
-        //    private void getCellCoordinatesFromUser(out int o_Rows, out int o_Cols, out bool o_QuitGame)
-        //    {
-        //        int selectedRow = 0;
-        //        int selectedCol = 0;
-        //        string rowStr = string.Empty;
-        //        string colStr = string.Empty;
-        //        bool isValidInput = true;
-
-        //        do
-        //        {
-        //            Console.Write("Rows Index: ");
-        //            rowStr = Console.ReadLine();
-
-        //            if (didPlayerQuit(rowStr))
-        //            {
-        //                o_QuitGame = true;
-        //                break;
-        //            }
-
-        //            Console.Write("Cols Index: ");
-        //            colStr = Console.ReadLine();
-
-        //            int.TryParse(rowStr, out selectedRow);
-        //            int.TryParse(colStr, out selectedCol);
-
-        //            o_QuitGame = didPlayerQuit(rowStr);
-
-        //            // We decrement the coordinates in order to match the indices we print - matrix starts from 0, UI from 1.
-        //            selectedCol--;
-        //            selectedRow--;
-        //            isValidInput = !(isOutOfRange(selectedRow, selectedCol, r_TicTacToeBoard.Size) || r_TicTacToeBoard.isCellOccupied(selectedRow, selectedCol));
-        //        }
-        //        while (!isValidInput);
-
-        //        o_Rows = selectedRow;
-        //        o_Cols = selectedCol;
-        //    }
-
-        //    private bool isGameTied()
-        //    {
-        //        return r_TicTacToeBoard.IsFull;
-        //    }
-
-        //    private void updateScore()
-        //    {
-        //        if (r_TicTacToeBoard.CurrentPlayer == ePlayer.Player)
-        //        {
-        //            // it is a REVERSED tic tac toe game. Hence, if the players get a sequence, they lose!
-        //            Console.WriteLine("{0}{1}", "Opponent Wins!", Environment.NewLine);
-        //            s_OpponentScore++;
+        //            // WAIT FOR BUTTON CLICK
+        //            TicTacToeBoard.playTurn(ref inputtedRowNum, ref inputtedColNum);
         //        }
         //        else
         //        {
-        //            Console.WriteLine("{0}{1}", "Player Wins!", Environment.NewLine);
-        //            s_PlayerScore++;
+        //            if (m_OpponentType == ePlayerType.Computer)
+        //            {
+        //                TicTacToeBoard.playTurn(ref inputtedRowNum, ref inputtedColNum);
+        //            }
+        //            else
+        //            {
+        //                // WAIT FOR BUTTON CLICK
+        //            }
+        //        }
+
+        //        if (r_TicTacToeBoard.checkBoardForSequence(inputtedRowNum, inputtedColNum))
+        //        {
+        //            //DISPLAY A MASSAGE A WIN!**************
+        //            //MASSAGE TO USER ASKING PLAY ANOTHER ROUND?**************
+        //            //IF USER PRESS YES WE PREPARE ANOTHER ROUND****************
+        //            isWon = true;
+        //        }
+        //        else if (isGameTied())
+        //        {
+        //            //DISPLAY A MASSAGE A TIE!**************
+        //            //MASSAGE TO USER ASKING PLAY ANOTHER ROUND?**************
+        //            //IF USER PRESS YES WE PREPARE ANOTHER ROUND****************
+        //            isTied = true;
+        //        }
+
+        //        switchPlayersTurn();
+
+        //        currentRoundOver = isTied || isWon;
+
+        //        if (currentRoundOver)
+        //        {
+        //            //MASSAGE TO USER ASKING PLAY ANOTHER ROUND?**************
+        //            //IF USER PRESS YES WE PREPARE ANOTHER ROUND****************
+        //            prepareNextRound();
+        //            isWon = false;
+        //            isTied = false;
+        //            currentRoundOver = false;
         //        }
         //    }
+        //    while (keepPlaying);
 
-        //    private void switchPlayersTurn()
-        //    {
-        //        r_TicTacToeBoard.CurrentPlayer = r_TicTacToeBoard.CurrentPlayer == ePlayer.Player ? ePlayer.Opponent : ePlayer.Player;
-        //    }
+        //    //DISPLAY A MASSAGE THANKS FOR PLAYING**************
+        //}
 
-        //    private void prepareNextRound()
-        //    {
-        //        r_TicTacToeBoard.initializeGameBoard();
-        //        drawBoard();
-        //        r_TicTacToeBoard.CurrentPlayer = ePlayer.Player;
-        //        r_TicTacToeBoard.CountOfOccupiedCells = 0;
-        //        r_TicTacToeBoard.IsFull = false;
-        //    }
+        private bool isGameTied()
+        {
+            return r_TicTacToeBoard.IsFull;
+        }
+
+        private void updateScore()
+        {
+            if (r_TicTacToeBoard.CurrentPlayer == ePlayer.Player)
+            {
+                // it is a REVERSED tic tac toe game. Hence, if the players get a sequence, they lose!
+                m_OpponentScore++;
+            }
+            else
+            {
+                m_PlayerScore++;
+            }
+        }
+
+        private void switchPlayersTurn()
+        {
+            r_TicTacToeBoard.CurrentPlayer = r_TicTacToeBoard.CurrentPlayer == ePlayer.Player ? ePlayer.Opponent : ePlayer.Player;
+        }
+
+        private void prepareNextRound()
+        {
+            r_TicTacToeBoard.initializeGameBoard();
+            r_TicTacToeBoard.CurrentPlayer = ePlayer.Player;
+            r_TicTacToeBoard.CountOfOccupiedCells = 0;
+            r_TicTacToeBoard.IsFull = false;
+            initializeBoardButtons();
+        }
+
+        private void initializeBoardButtons()
+        {
+            foreach(BoardButton buttun in ButtonsMatrix)
+            {
+                buttun.Text = "";
+                buttun.Enabled = true;
+            }
+        }
 
     }
 }
