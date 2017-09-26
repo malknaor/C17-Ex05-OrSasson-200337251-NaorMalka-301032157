@@ -47,7 +47,7 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
                     r_ButtonsMatrix[i, j].Height = buttonHeight;
                     r_ButtonsMatrix[i, j].Width = buttonWidth;
                     r_ButtonsMatrix[i, j].Text = "";
-                    r_ButtonsMatrix[i, j].Click += board_button_click;
+                    r_ButtonsMatrix[i, j].Click += OnClick;
                     this.Controls.Add(r_ButtonsMatrix[i, j]);
                 }
             }
@@ -77,7 +77,7 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
             }
         }
 
-        private void board_button_click(object sender, EventArgs e)
+        private void OnClick(object sender, EventArgs e)
         {
             BoardButton button = (sender as BoardButton);
             int rowIndex = button.RowIndex;
@@ -86,78 +86,39 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
             button.Text = m_CurrentPlayer == ePlayer.Player ? "X" : "O";
             button.Enabled = false;
             TicTacToeBoard.playTurn(ref rowIndex, ref colIndex);
+            switchPlayersTurn();
+
+            if (m_OpponentType == ePlayerType.Computer)
+            {
+                generateButtonClick();
+            }
         }
 
-        private void generate_button_click(ref int io_RowIndex, ref int io_ColIndex)
+        private void onTie(object sender, EventArgs e)
         {
-            TicTacToeBoard.playTurn(ref io_RowIndex, ref io_ColIndex); 
-            ButtonsMatrix[io_RowIndex, io_ColIndex].Text = "O";
-            ButtonsMatrix[io_RowIndex, io_ColIndex].Enabled = false;
+            string massage = @"A Tie!
+Would you like to play another round?";
+
+
         }
 
-        protected 
+        private void onWin(object sender, EventArgs e)
+        {
+            string massage = @"A Win!
+Would you like to play another round?";
 
-        //private void runGame()
-        //{
-        //    int inputtedRowNum = 0;
-        //    int inputtedColNum = 0;
-        //    bool isWon = false;
-        //    bool currentRoundOver = false;
-        //    bool keepPlaying = true;
-        //    bool isTied = false;
+        }
 
-        //    do
-        //    {
-        //        if (m_CurrentPlayer == ePlayer.Player)
-        //        {
-        //            // WAIT FOR BUTTON CLICK
-        //            TicTacToeBoard.playTurn(ref inputtedRowNum, ref inputtedColNum);
-        //        }
-        //        else
-        //        {
-        //            if (m_OpponentType == ePlayerType.Computer)
-        //            {
-        //                TicTacToeBoard.playTurn(ref inputtedRowNum, ref inputtedColNum);
-        //            }
-        //            else
-        //            {
-        //                // WAIT FOR BUTTON CLICK
-        //            }
-        //        }
+        private void generateButtonClick()
+        {
+            int i = 0;
+            int j = 0;
+            TicTacToeBoard.playTurn(ref i, ref j); 
+            ButtonsMatrix[i, j].Text = "O";
+            ButtonsMatrix[i, j].Enabled = false;
 
-        //        if (r_TicTacToeBoard.checkBoardForSequence(inputtedRowNum, inputtedColNum))
-        //        {
-        //            //DISPLAY A MASSAGE A WIN!**************
-        //            //MASSAGE TO USER ASKING PLAY ANOTHER ROUND?**************
-        //            //IF USER PRESS YES WE PREPARE ANOTHER ROUND****************
-        //            isWon = true;
-        //        }
-        //        else if (isGameTied())
-        //        {
-        //            //DISPLAY A MASSAGE A TIE!**************
-        //            //MASSAGE TO USER ASKING PLAY ANOTHER ROUND?**************
-        //            //IF USER PRESS YES WE PREPARE ANOTHER ROUND****************
-        //            isTied = true;
-        //        }
-
-        //        switchPlayersTurn();
-
-        //        currentRoundOver = isTied || isWon;
-
-        //        if (currentRoundOver)
-        //        {
-        //            //MASSAGE TO USER ASKING PLAY ANOTHER ROUND?**************
-        //            //IF USER PRESS YES WE PREPARE ANOTHER ROUND****************
-        //            prepareNextRound();
-        //            isWon = false;
-        //            isTied = false;
-        //            currentRoundOver = false;
-        //        }
-        //    }
-        //    while (keepPlaying);
-
-        //    //DISPLAY A MASSAGE THANKS FOR PLAYING**************
-        //}
+            switchPlayersTurn();
+        }
 
         private bool isGameTied()
         {
@@ -199,6 +160,5 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
                 buttun.Enabled = true;
             }
         }
-
     }
 }
