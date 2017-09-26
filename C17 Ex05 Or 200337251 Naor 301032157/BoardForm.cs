@@ -15,20 +15,24 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
         private readonly int r_GameBoardSize;
         private readonly Button[,] r_ButtonsMatrix;
         private readonly TicTacToeBoard r_TicTacToeBoard;
-        private ePlayer m_CurrentPlayer;
         private readonly ePlayerType m_OpponentType;
-        private /*static*/ int m_PlayerScore;
-        private /*static*/ int m_OpponentScore;
-
-        public BoardForm(int i_Size, ePlayerType i_Opponent)
+        private string m_Player1Name;
+        private string m_Player2Name;
+        private GameSettings m_GameSetting;
+        public BoardForm()
         {
-            r_GameBoardSize = i_Size;
+            m_GameSetting = new GameSettings();
+            m_GameSetting.ShowDialog();
+            r_GameBoardSize = m_GameSetting.Size;
+            m_Player1Name = m_GameSetting.Player1Name;
+            m_Player2Name = m_GameSetting.Player2Name;
+            m_OpponentType = m_GameSetting.OpponentType;
             r_ButtonsMatrix = new BoardButton[r_GameBoardSize, r_GameBoardSize];
-            r_TicTacToeBoard = new TicTacToeBoard(i_Size, i_Opponent);
-            m_OpponentType = i_Opponent;
-            m_CurrentPlayer = r_TicTacToeBoard.CurrentPlayer;
-            m_PlayerScore = 0;
-            m_OpponentScore = 0;
+            r_TicTacToeBoard = new TicTacToeBoard(r_GameBoardSize, m_OpponentType);
+            TicTacToeBoard.Tie += onTie;
+            TicTacToeBoard.Win += onWin;
+            TicTacToeBoard.OnCellChanged += onCellChanged;
+            
 
             int buttonHeight = 40;
             int buttonWidth = 40;
@@ -36,6 +40,8 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
             int startWidth = this.Left;
 
             InitializeComponent();
+            label1.Text = m_Player1Name + ":";
+            label2.Text = m_Player2Name + ":";
 
             for (int i = 0; i < r_GameBoardSize; i++)
             {
@@ -51,6 +57,25 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
                     this.Controls.Add(r_ButtonsMatrix[i, j]);
                 }
             }
+
+            this.label1.Left = this.Left + 10;
+            this.label1.Top = r_ButtonsMatrix[r_GameBoardSize - 1, r_GameBoardSize - 1].Top + buttonHeight + 20;
+
+            this.labelPlayerScore.Left = label1.Left + label1.Width + 10;
+            this.labelPlayerScore.Top = r_ButtonsMatrix[r_GameBoardSize - 1, r_GameBoardSize - 1].Top + buttonHeight + 20;
+
+            this.label2.Left = labelPlayerScore.Left + labelPlayerScore.Width + 10;
+            this.label2.Top = r_ButtonsMatrix[r_GameBoardSize - 1, r_GameBoardSize - 1].Top + buttonHeight + 20;
+
+            this.labelOpponentScore.Left = label2.Left + label2.Width + 10;
+            this.labelOpponentScore.Top = r_ButtonsMatrix[r_GameBoardSize - 1, r_GameBoardSize - 1].Top + buttonHeight + 20;
+            //this.PerformAutoScale();
+        }
+
+        private void onCellChanged(int i_Row, int i_Col)
+        {
+            ButtonsMatrix[i_Row, i_Col].Text = "O";
+            ButtonsMatrix[i_Row, i_Col].Enabled = false;
         }
 
         internal TicTacToeBoard TicTacToeBoard
@@ -58,14 +83,6 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
             get
             {
                 return r_TicTacToeBoard;
-            }
-        }
-
-        internal ePlayer CurrentPlayer
-        {
-            get
-            {
-                return m_CurrentPlayer;
             }
         }
 
@@ -83,15 +100,16 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
             int rowIndex = button.RowIndex;
             int colIndex = button.ColIndex;
 
-            button.Text = m_CurrentPlayer == ePlayer.Player ? "X" : "O";
+            button.Text = TicTacToeBoard.CurrentPlayer == ePlayer.Player ? "X" : "O";
             button.Enabled = false;
-            TicTacToeBoard.playTurn(ref rowIndex, ref colIndex);
-            switchPlayersTurn();
+            TicTacToeBoard.PlayTurn(ref rowIndex, ref colIndex);
 
-            if (m_OpponentType == ePlayerType.Computer)
+            if (m_OpponentType == ePlayerType.Computer && !TicTacToeBoard.NewGame)
             {
                 generateButtonClick();
             }
+
+            TicTacToeBoard.NewGame = false;
         }
 
         private void onTie(object sender, EventArgs e)
@@ -99,56 +117,66 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
             string massage = @"A Tie!
 Would you like to play another round?";
 
+            DialogResult result = MessageBox.Show(massage, "Tie!", MessageBoxButtons.YesNo);
 
+            if (result == DialogResult.Yes)
+            {
+                prepareNextRound();
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        private string gameStateToString()
+        {
+            string name = string.Empty;
+
+            switch (TicTacToeBoard.GameState)
+            {
+                case eGameState.Player1:
+                    name = m_Player1Name;
+                    break;
+                case eGameState.Player2:
+                    name = m_Player2Name;
+                    break;
+                default:
+                    break;
+            }
+
+            return name;
         }
 
         private void onWin(object sender, EventArgs e)
         {
-            string massage = @"A Win!
-Would you like to play another round?";
+            string massage = string.Format(@"The winner is {0}! 
+Would you like to play another round?", gameStateToString());
+            DialogResult result = MessageBox.Show(massage, "Win!", MessageBoxButtons.YesNo);
 
+            if (result == DialogResult.Yes)
+            {
+                labelPlayerScore.Text = TicTacToeBoard.PlayerScore.ToString();
+                labelOpponentScore.Text = TicTacToeBoard.OpponentScore.ToString();
+                prepareNextRound();
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
         private void generateButtonClick()
         {
             int i = 0;
             int j = 0;
-            TicTacToeBoard.playTurn(ref i, ref j); 
-            ButtonsMatrix[i, j].Text = "O";
-            ButtonsMatrix[i, j].Enabled = false;
 
-            switchPlayersTurn();
-        }
-
-        private bool isGameTied()
-        {
-            return r_TicTacToeBoard.IsFull;
-        }
-
-        private void updateScore()
-        {
-            if (r_TicTacToeBoard.CurrentPlayer == ePlayer.Player)
-            {
-                // it is a REVERSED tic tac toe game. Hence, if the players get a sequence, they lose!
-                m_OpponentScore++;
-            }
-            else
-            {
-                m_PlayerScore++;
-            }
-        }
-
-        private void switchPlayersTurn()
-        {
-            r_TicTacToeBoard.CurrentPlayer = r_TicTacToeBoard.CurrentPlayer == ePlayer.Player ? ePlayer.Opponent : ePlayer.Player;
+            TicTacToeBoard.PlayTurn(ref i, ref j);
         }
 
         private void prepareNextRound()
         {
-            r_TicTacToeBoard.initializeGameBoard();
-            r_TicTacToeBoard.CurrentPlayer = ePlayer.Player;
-            r_TicTacToeBoard.CountOfOccupiedCells = 0;
-            r_TicTacToeBoard.IsFull = false;
+            TicTacToeBoard.initializeGameBoard();
             initializeBoardButtons();
         }
 

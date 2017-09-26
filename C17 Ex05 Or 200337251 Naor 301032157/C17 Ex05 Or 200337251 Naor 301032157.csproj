@@ -39,8 +39,9 @@
     <StartupObject>C17_Ex05_Or_200337251_Naor_301032157.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C17 Ex02 Logic">
-      <HintPath>..\..\C17 Ex02 NaorMalka 301032157 OrSasson 200337251\C17 Ex02 Logic\obj\Debug\C17 Ex02 Logic.dll</HintPath>
+    <Reference Include="C17 Ex02 Logic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\C17 Ex02 Logic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

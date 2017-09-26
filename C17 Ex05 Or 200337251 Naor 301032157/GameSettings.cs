@@ -20,6 +20,38 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
             InitializeComponent();
         }
 
+        public string Player1Name
+        {
+            get
+            {
+                return Player1TextBox.Text;
+            }
+        }
+
+        public string Player2Name
+        {
+            get
+            {
+                return Player2TextBox.Text;
+            }
+        }
+
+        public ePlayerType OpponentType
+        {
+            get
+            {
+                return m_Opponent;
+            }
+        }
+
+        public int Size
+        {
+            get
+            {
+                return int.Parse(RowsNumericUpDown.Value.ToString());
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             
@@ -83,7 +115,7 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
 
         private void start_button_click(object sender, EventArgs e)
         {
-            
+            this.Close();
         }
     }
 }

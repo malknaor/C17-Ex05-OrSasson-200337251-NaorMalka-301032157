@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C17 Ex05 Or 200337251 Naor 301032157", "C17 Ex05 Or 200337251 Naor 301032157\C17 Ex05 Or 200337251 Naor 301032157.csproj", "{BC6FD357-59C2-4670-879A-7F177816F8C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C17 Ex02 Logic", "..\C17 Ex02 NaorMalka 301032157 OrSasson 200337251\C17 Ex02 Logic\C17 Ex02 Logic.csproj", "{C60F8E8C-4C20-4C2A-ADE5-82E1D4A3B1B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BC6FD357-59C2-4670-879A-7F177816F8C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC6FD357-59C2-4670-879A-7F177816F8C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC6FD357-59C2-4670-879A-7F177816F8C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C60F8E8C-4C20-4C2A-ADE5-82E1D4A3B1B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C60F8E8C-4C20-4C2A-ADE5-82E1D4A3B1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C60F8E8C-4C20-4C2A-ADE5-82E1D4A3B1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C60F8E8C-4C20-4C2A-ADE5-82E1D4A3B1B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

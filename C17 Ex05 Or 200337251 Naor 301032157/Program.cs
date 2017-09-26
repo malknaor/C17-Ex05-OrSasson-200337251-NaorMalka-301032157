@@ -16,7 +16,7 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new GameSettings());
-            Application.Run(new BoardForm(5, C17_Ex02_Naor_301032157_Or_200337251.ePlayerType.Computer));
+            Application.Run(new BoardForm());
         }
     }
 }

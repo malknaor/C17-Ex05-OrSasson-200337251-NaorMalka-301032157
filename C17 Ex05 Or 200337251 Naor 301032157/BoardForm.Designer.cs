@@ -30,16 +30,15 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.PlayerScore = new System.Windows.Forms.Label();
-            this.OpponentScore = new System.Windows.Forms.Label();
+            this.labelOpponentScore = new System.Windows.Forms.Label();
+            this.labelPlayerScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 235);
+            this.label1.Location = new System.Drawing.Point(15, 231);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(48, 13);
             this.label1.TabIndex = 0;
@@ -47,59 +46,49 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(111, 234);
+            this.label2.Location = new System.Drawing.Point(100, 231);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Player 2:";
             // 
-            // label3
+            // labelOpponentScore
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(42, 234);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 13);
-            this.label3.TabIndex = 2;
+            this.labelOpponentScore.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.labelOpponentScore.AutoSize = true;
+            this.labelOpponentScore.Location = new System.Drawing.Point(154, 231);
+            this.labelOpponentScore.Name = "labelOpponentScore";
+            this.labelOpponentScore.Size = new System.Drawing.Size(13, 13);
+            this.labelOpponentScore.TabIndex = 6;
+            this.labelOpponentScore.Text = "0";
             // 
-            // label4
+            // labelPlayerScore
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(154, 234);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 13);
-            this.label4.TabIndex = 3;
-            // 
-            // PlayerScore
-            // 
-            this.PlayerScore.AutoSize = true;
-            this.PlayerScore.Location = new System.Drawing.Point(64, 235);
-            this.PlayerScore.Name = "PlayerScore";
-            this.PlayerScore.Size = new System.Drawing.Size(0, 13);
-            this.PlayerScore.TabIndex = 4;
-            // 
-            // OpponentScore
-            // 
-            this.OpponentScore.AutoSize = true;
-            this.OpponentScore.Location = new System.Drawing.Point(161, 234);
-            this.OpponentScore.Name = "OpponentScore";
-            this.OpponentScore.Size = new System.Drawing.Size(0, 13);
-            this.OpponentScore.TabIndex = 5;
+            this.labelPlayerScore.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.labelPlayerScore.AutoSize = true;
+            this.labelPlayerScore.Location = new System.Drawing.Point(69, 231);
+            this.labelPlayerScore.Name = "labelPlayerScore";
+            this.labelPlayerScore.Size = new System.Drawing.Size(13, 13);
+            this.labelPlayerScore.TabIndex = 6;
+            this.labelPlayerScore.Text = "0";
             // 
             // BoardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(279, 257);
-            this.Controls.Add(this.OpponentScore);
-            this.Controls.Add(this.PlayerScore);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(247, 253);
+            this.Controls.Add(this.labelPlayerScore);
+            this.Controls.Add(this.labelOpponentScore);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "BoardForm";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TicTacToeMisere";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -110,9 +99,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label PlayerScore;
-        private System.Windows.Forms.Label OpponentScore;
+        private System.Windows.Forms.Label labelOpponentScore;
+        private System.Windows.Forms.Label labelPlayerScore;
     }
 }
