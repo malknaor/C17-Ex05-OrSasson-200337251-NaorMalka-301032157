@@ -19,6 +19,11 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
         private string m_Player1Name;
         private string m_Player2Name;
         private GameSettings m_GameSetting;
+        private Label m_Label1;
+        private Label m_Label2;
+        private Label m_LabelOpponentScore;
+        private Label m_LabelPlayerScore;
+            
         public BoardForm()
         {
             m_GameSetting = new GameSettings();
@@ -32,16 +37,22 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
             TicTacToeBoard.Tie += onTie;
             TicTacToeBoard.Win += onWin;
             TicTacToeBoard.OnCellChanged += onCellChanged;
-            
 
             int buttonHeight = 40;
             int buttonWidth = 40;
             int startHeight = this.Top;
             int startWidth = this.Left;
+            int space = 10;
+
+            this.m_Label1 = new System.Windows.Forms.Label();
+            this.m_Label2 = new System.Windows.Forms.Label();
+            this.m_LabelOpponentScore = new System.Windows.Forms.Label();
+            this.m_LabelPlayerScore = new System.Windows.Forms.Label();
 
             InitializeComponent();
-            label1.Text = m_Player1Name + ":";
-            label2.Text = m_Player2Name + ":";
+
+            m_Label1.Text = m_Player1Name + ":";
+            m_Label2.Text = m_Player2Name + ":";
 
             for (int i = 0; i < r_GameBoardSize; i++)
             {
@@ -58,18 +69,29 @@ namespace C17_Ex05_Or_200337251_Naor_301032157
                 }
             }
 
-            this.label1.Left = this.Left + 10;
-            this.label1.Top = r_ButtonsMatrix[r_GameBoardSize - 1, r_GameBoardSize - 1].Top + buttonHeight + 20;
+            
+            this.Controls.Add(m_Label1);
+            this.m_Label1.Left = this.Left + 10;
+            this.m_Label1.Top = r_ButtonsMatrix[r_GameBoardSize - 1, r_GameBoardSize - 1].Top + buttonHeight;
+            this.m_Label1.AutoSize = true;
 
-            this.labelPlayerScore.Left = label1.Left + label1.Width + 10;
-            this.labelPlayerScore.Top = r_ButtonsMatrix[r_GameBoardSize - 1, r_GameBoardSize - 1].Top + buttonHeight + 20;
+            this.Controls.Add(m_LabelPlayerScore);
+            this.m_LabelPlayerScore.Left = m_Label1.Left + m_Label1.Width + 10;
+            this.m_LabelPlayerScore.Top = m_Label1.Top;
+            this.m_LabelPlayerScore.Text = "0";
+            this.m_LabelPlayerScore.AutoSize = true;
 
-            this.label2.Left = labelPlayerScore.Left + labelPlayerScore.Width + 10;
-            this.label2.Top = r_ButtonsMatrix[r_GameBoardSize - 1, r_GameBoardSize - 1].Top + buttonHeight + 20;
+            this.Controls.Add(m_Label2);
+            this.m_Label2.Left = m_LabelPlayerScore.Left + m_LabelPlayerScore.Width + 10;
+            this.m_Label2.Top = m_Label1.Top;
+            this.m_Label2.AutoSize = true;
 
-            this.labelOpponentScore.Left = label2.Left + label2.Width + 10;
-            this.labelOpponentScore.Top = r_ButtonsMatrix[r_GameBoardSize - 1, r_GameBoardSize - 1].Top + buttonHeight + 20;
-            //this.PerformAutoScale();
+            this.Controls.Add(m_LabelOpponentScore);
+            this.m_LabelOpponentScore.Left = m_Label2.Left + m_Label2.Width + 10;
+            this.m_LabelOpponentScore.Top = m_Label1.Top;
+            this.m_LabelOpponentScore.Text = "0";
+            this.m_LabelOpponentScore.AutoSize = true;
+
         }
 
         private void onCellChanged(int i_Row, int i_Col)
@@ -156,8 +178,8 @@ Would you like to play another round?", gameStateToString());
 
             if (result == DialogResult.Yes)
             {
-                labelPlayerScore.Text = TicTacToeBoard.PlayerScore.ToString();
-                labelOpponentScore.Text = TicTacToeBoard.OpponentScore.ToString();
+                m_LabelPlayerScore.Text = TicTacToeBoard.PlayerScore.ToString();
+                m_LabelOpponentScore.Text = TicTacToeBoard.OpponentScore.ToString();
                 prepareNextRound();
             }
             else
@@ -187,6 +209,11 @@ Would you like to play another round?", gameStateToString());
                 buttun.Text = "";
                 buttun.Enabled = true;
             }
+        }
+
+        private void BoardForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
